@@ -1,0 +1,55 @@
+.header {
+  padding: 5px 40px 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .logo {
+    width: 80px;
+    height: 80px;
+    transition: opacity .3s;
+  }
+
+  .menu {
+    .menu-list {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+
+      li {
+        list-style: none;
+
+        a {
+          text-decoration: none;
+          color: $text-main;
+        }
+
+        a:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: stretch;
+  z-index: 100;
+  
+  // 初始狀態：藏在上面並透明
+  transform: translateY(-100%); 
+  opacity: 0; 
+  
+  // 為了效能，建議強制開啟 GPU 加速
+  will-change: transform, opacity;
+}
+
+.footer {
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

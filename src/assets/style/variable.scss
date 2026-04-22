@@ -1,0 +1,24 @@
+// --- 網站色票定義 ---
+
+// 核心主色 (取自 Logo 內圈的木質橘與暖銅色)
+$primary-color: #C18A67; 
+$primary-light: #DEB89B;
+$primary-dark: #8E5C41;
+
+// 輔助色 (取自 Logo 外圍的淺綠與石板青)
+$secondary-color: #A3B18A; // 柔和的鼠尾草綠
+$accent-color: #7B9BA6;    // 靜謐的灰藍色，增加工程專業感
+
+// 背景色 (避開黑色與純白，使用更有質感的米色與暖灰)
+$bg-primary: #F9F8F4;      // 主背景，接近 Logo 的米白底色
+$bg-secondary: #EDEBDF;    // 區塊背景，增加層次感
+
+// 文字顏色
+$text-main: #4A4A4A;       // 深炭灰，比純黑更溫和，閱讀舒適度高
+$text-muted: #8C8C8C;      // 次要資訊文字
+$text-on-primary: #FFFFFF; // 亮色背景上的文字
+
+// 狀態與框線
+$border-color: #D1D1D1;    // 非金屬感的平面框線
+$success-color: #6B8E23;
+$error-color: #BC4B51;
