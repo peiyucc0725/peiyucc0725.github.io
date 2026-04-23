@@ -20,6 +20,11 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 body {
@@ -34,6 +39,7 @@ h2 {
 
 h1 {
   font-size: 56px;
+  line-height: 100%;
   letter-spacing: -1.68px;
   margin: 32px 0;
 

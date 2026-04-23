@@ -7,6 +7,33 @@ const Hero: React.FC = () => {
   const container = useRef<HTMLDivElement>(null);
   const logoWrapperRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
+  const markerRef = useRef<HTMLDivElement>(null);
+  const spinnerRef = useRef<SVGSVGElement>(null);
+  const statusTextRef = useRef<HTMLSpanElement>(null);
+
+  const runShuffle = (target: string) => {
+    if (!statusTextRef.current) return;
+
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+    let iteration = 0;
+
+    const interval = setInterval(() => {
+      const shuffled = target
+        .split("")
+        .map((_, index) => {
+          if (index < iteration) return target[index];
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join("");
+
+      statusTextRef.current!.innerText = `[${shuffled}]`;
+
+      if (iteration >= target.length) {
+        clearInterval(interval);
+      }
+      iteration += 1 / 4;
+    }, 30);
+  };
 
   useGSAP(() => {
     const q = gsap.utils.selector(container);
@@ -36,8 +63,23 @@ const Hero: React.FC = () => {
         y: 20,
         opacity: 0,
         duration: 0.8
-      }, "-=0.5");
+      }, "-=0.5")
+      .from(markerRef.current, {
+        opacity: 0,
+        x: 20,
+        duration: 1,
+        ease: "power2.out"
+      }, "-=1")
+      .call(() => {
+        runShuffle("UPDATE_STEP_001");
+      });
 
+    gsap.to(spinnerRef.current, {
+      rotation: 360,
+      duration: 2,
+      repeat: -1,
+      ease: "none"
+    });
 
     const xTo = gsap.quickTo(logoWrapperRef.current, "rotationY", { duration: 0.5, ease: "power3" });
     const yTo = gsap.quickTo(logoWrapperRef.current, "rotationX", { duration: 0.5, ease: "power3" });
@@ -86,13 +128,26 @@ const Hero: React.FC = () => {
       <h1 className="title">
         <span className="title-word">Hello,</span>
         <span className="title-word">I'm</span>
-        <span className="title-word">Pei-Yu</span>
+        <span className="title-word name">Pei-Yu</span>
       </h1>
 
       <p className="subtitle">
-        Senior Frontend Engineer. Turning complex challenges into elegant solutions.
+        Senior Frontend Engineer. Crafting elegant solutions from complex challenges.
       </p>
-    </section>
+
+      <div ref={markerRef} className="site-state-marker">
+        <div className="marker-content">
+          <svg ref={spinnerRef} className="spinner" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" stroke="rgba(0,0,0,0.05)" strokeWidth="1" fill="none" />
+            <path d="M12 2 A10 10 0 0 1 22 12" stroke="#c2a685" strokeWidth="2" fill="none" strokeLinecap="round" />
+          </svg>
+          <div className="text-group">
+            <span className="label">SYSTEM_STATUS</span>
+            <span className="value" ref={statusTextRef}>[***************]</span>
+          </div>
+        </div>
+      </div>
+    </section >
   );
 };
 
