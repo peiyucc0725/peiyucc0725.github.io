@@ -1,10 +1,14 @@
 import "./Projects.scss";
 import { useRef } from 'react';
 
-const Projects =() => {
+const Projects = () => {
   const container = useRef<HTMLDivElement>(null);
 
-  return (<section id="projects" ref={container} className="projects-section"></section>)
+  return (
+    <section id="projects" ref={container} className="projects-section">
+      Projects
+    </section>
+  )
 }
 
 export default Projects
