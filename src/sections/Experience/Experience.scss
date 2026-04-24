@@ -3,15 +3,6 @@
   min-height: 100vh;
   padding: 80px 0 0 0;
 
-  .section-title {
-    font-family: monospace;
-    font-size: 1.2rem;
-    color: #c2a685;
-    margin-bottom: 80px;
-    letter-spacing: 0.2em;
-    text-align: center;
-  }
-
   .timeline-container {
     width: calc(100vw - 120px);
     max-width: 900px;
@@ -19,13 +10,18 @@
     position: relative;
     padding: 20px 0 20px 60px;
 
+    @media (max-width: 768px) {
+      width: calc(100vw - 80px);
+      padding: 20px 0 20px 40px;
+    }
+
     .timeline-base-line {
       position: absolute;
       left: 0;
       top: 0;
       width: 1px;
       height: 100%;
-      background: rgba(0,0,0,0.05); // 淡淡的底色線
+      background: rgba(0, 0, 0, 0.05);
     }
 
     .timeline-growth-line {
@@ -34,7 +30,7 @@
       top: 0;
       width: 2px;
       height: 100%;
-      background: #c2a685; // 你的點綴色
+      background: #c2a685;
       transform-origin: top;
       z-index: 2;
     }
@@ -44,8 +40,10 @@
 .exp-item {
   position: relative;
   margin-bottom: 150px;
-  
-  &:last-child { margin-bottom: 80px; }
+
+  &:last-child {
+    margin-bottom: 80px;
+  }
 
   .exp-dot {
     position: absolute;
@@ -57,37 +55,64 @@
     background: #fff;
     border-radius: 50%;
     z-index: 3;
+
+    @media (max-width: 768px) {
+      left: -45px;
+    }
   }
 
   .exp-body {
     .exp-header {
       margin-bottom: 20px;
-      .exp-date { font-family: monospace; color: #c2a685; }
-      .exp-company { font-size: 1.8rem; margin: 8px 0; font-weight: 700; }
-      .exp-duration { font-size: 0.8rem; color: #999; }
+
+      .exp-date {
+        color: #c2a685;
+      }
+
+      .exp-company {
+        font-size: 1.8rem;
+        margin: 8px 0;
+        font-weight: 700;
+      }
+
+      .exp-duration {
+        font-size: 0.8rem;
+        color: #999;
+      }
     }
 
     .exp-roles {
       margin-bottom: 25px;
+
       .role-entry {
         display: flex;
         align-items: baseline;
         gap: 15px;
         margin-bottom: 5px;
-        .role-title { font-weight: 600; color: #444; }
-        .role-date { font-size: 0.85rem; color: #888; }
+
+        .role-title {
+          font-weight: 600;
+          color: #444;
+        }
+
+        .role-date {
+          font-size: 0.85rem;
+          color: #888;
+        }
       }
     }
 
     .exp-desc {
       list-style: none;
       padding: 0;
+
       li {
         position: relative;
         padding-left: 18px;
         margin-bottom: 12px;
         line-height: 1.7;
         color: #555;
+
         &::before {
           content: "—";
           position: absolute;
@@ -102,8 +127,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
+
       .tech-tag {
-        font-family: monospace;
         font-size: 0.85rem;
         background: rgba(194, 166, 133, 0.08);
         color: #c2a685;

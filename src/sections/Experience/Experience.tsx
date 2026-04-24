@@ -6,8 +6,6 @@ import StateMarker from '../../components/StateMarker';
 import { EXPERIENCES } from './Contents';
 import './Experience.scss';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const Experience: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
@@ -21,7 +19,6 @@ const Experience: React.FC = () => {
       onLeaveBack: () => setAnimDone(false),
     });
 
-    // 1. 時間軸主線條生長動畫
     gsap.fromTo(lineRef.current,
       { scaleY: 0 },
       {
@@ -36,7 +33,6 @@ const Experience: React.FC = () => {
       }
     );
 
-    // 2. 遍歷每個經歷項目，設定觸發與 Marker 聯動
     EXPERIENCES.forEach((exp, index) => {
       const itemSelector = `.exp-item-${index}`;
 
@@ -56,9 +52,7 @@ const Experience: React.FC = () => {
   return (
     <section id="experience" ref={containerRef} className="experience-section">
       <div className="timeline-container">
-        {/* 背景參考線 */}
         <div className="timeline-base-line" />
-        {/* 動態生長的主線 */}
         <div ref={lineRef} className="timeline-growth-line" />
 
         {EXPERIENCES.map((exp, index) => (
@@ -94,7 +88,6 @@ const Experience: React.FC = () => {
         ))}
       </div>
 
-      {/* Sticky Monitor: 會一直固定在視窗右下角 */}
       <div className="monitor-anchor">
         <StateMarker
           isParentAnimDone={animDone}

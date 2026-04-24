@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // 主色
 $primary-color: #C18A67; 
 $primary-light: #DEB89B;
@@ -39,7 +41,7 @@ $panel-gradient: linear-gradient(
 $skill-item-hover: rgba($primary-light, 0.08);
 
 // 進度條底槽顏色
-$progress-track-bg: darken($bg-secondary, 5%);
+$progress-track-bg: color.adjust($bg-secondary, $lightness: -5%);
 
 // 卡片與容器 (Card & Containers)
 $card-bg: rgba(255, 255, 255, 0.45);
