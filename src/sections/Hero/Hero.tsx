@@ -8,7 +8,29 @@ const Hero: React.FC = () => {
   const container = useRef<HTMLDivElement>(null);
   const logoWrapperRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
+  const rafId = useRef<number | null>(null);
+  const pointerTarget = useRef({ x: 0, y: 0 });
+  const xToRef = useRef<((value: number) => gsap.core.Tween) | null>(null);
+  const yToRef = useRef<((value: number) => gsap.core.Tween) | null>(null);
   const [animDone, setAnimDone] = useState(false);
+
+  const updateRotation = () => {
+    xToRef.current?.(pointerTarget.current.x);
+    yToRef.current?.(pointerTarget.current.y);
+    rafId.current = null;
+  };
+
+  const moveMouse = (e: MouseEvent) => {
+    const relX = (e.clientX / window.innerWidth - 0.5) * 2;
+    const relY = (e.clientY / window.innerHeight - 0.5) * 2;
+
+    pointerTarget.current.x = relX * 15;
+    pointerTarget.current.y = -relY * 15;
+
+    if (rafId.current === null) {
+      rafId.current = window.requestAnimationFrame(updateRotation);
+    }
+  };
 
   useGSAP(() => {
     const q = gsap.utils.selector(container);
@@ -41,19 +63,10 @@ const Hero: React.FC = () => {
         y: 20,
         opacity: 0,
         duration: 0.8
-      }, "-=0.5")
+      }, "-=0.5");
 
-    const xTo = gsap.quickTo(logoWrapperRef.current, "rotationY", { duration: 0.5, ease: "power3" });
-    const yTo = gsap.quickTo(logoWrapperRef.current, "rotationX", { duration: 0.5, ease: "power3" });
-
-    const moveMouse = (e: MouseEvent) => {
-      // 計算滑鼠相對於視窗中心的百分比位置 (-1 to 1)
-      const relX = (e.clientX / window.innerWidth - 0.5) * 2;
-      const relY = (e.clientY / window.innerHeight - 0.5) * 2;
-
-      xTo(relX * 15);
-      yTo(-relY * 15); // Y 軸反向
-    };
+    xToRef.current = gsap.quickTo(logoWrapperRef.current, "rotationY", { duration: 0.5, ease: "power3" });
+    yToRef.current = gsap.quickTo(logoWrapperRef.current, "rotationX", { duration: 0.5, ease: "power3" });
 
     window.addEventListener("mousemove", moveMouse);
 
@@ -70,6 +83,9 @@ const Hero: React.FC = () => {
 
     return () => {
       window.removeEventListener("mousemove", moveMouse);
+      if (rafId.current !== null) {
+        window.cancelAnimationFrame(rafId.current);
+      }
     };
   }, { scope: container });
 

@@ -15,6 +15,7 @@ const StateMarker: React.FC<StateMarkerProps> = ({
   const markerRef = useRef<HTMLDivElement>(null);
   const spinnerRef = useRef<SVGSVGElement>(null);
   const statusTextRef = useRef<HTMLSpanElement>(null);
+  const intervalRef = useRef<number | null>(null);
 
   useGSAP(() => {
     gsap.to(spinnerRef.current, {
@@ -50,14 +51,23 @@ const StateMarker: React.FC<StateMarkerProps> = ({
 
   const runShuffle = (target: string) => {
     if (!statusTextRef.current) return;
+    if (intervalRef.current !== null) {
+      window.clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
     let iteration = 0;
 
-    const interval = setInterval(() => {
+    intervalRef.current = window.setInterval(() => {
       if (!statusTextRef.current) {
-        clearInterval(interval);
+        if (intervalRef.current !== null) {
+          window.clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
         return;
       }
+
       const shuffled = target
         .split("")
         .map((_, index) => {
@@ -68,10 +78,23 @@ const StateMarker: React.FC<StateMarkerProps> = ({
 
       statusTextRef.current.innerText = `[${shuffled}]`;
 
-      if (iteration >= target.length) clearInterval(interval);
+      if (iteration >= target.length) {
+        if (intervalRef.current !== null) {
+          window.clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      }
       iteration += 1 / 4;
     }, 30);
   };
+
+  React.useEffect(() => {
+    return () => {
+      if (intervalRef.current !== null) {
+        window.clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div ref={markerRef} className={styles.stateMarker}>

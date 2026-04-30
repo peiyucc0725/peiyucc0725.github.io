@@ -34,9 +34,10 @@ const Skills: React.FC = () => {
   const [activeCat, setActiveCat] = useState<string>('frontend');
   const containerRef = useRef<HTMLDivElement>(null);
   const [animDone, setAnimDone] = useState(false);
-  const lastIsMobile = useRef(window.innerWidth <= 768);
+  const lastIsMobile = useRef(typeof window !== 'undefined' ? window.innerWidth <= 768 : true);
   const contentRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [hasScroll, setHasScroll] = useState(false);
+  const resizeTimeout = useRef<number | null>(null);
 
   const checkScroll = () => {
     requestAnimationFrame(() => {
@@ -50,93 +51,114 @@ const Skills: React.FC = () => {
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const updatePanels = (forceAnim = false) => {
-      const isMobile = window.innerWidth <= 768;
-      const isBreakpointSwitched = isMobile !== lastIsMobile.current;
 
-      if (forceAnim || isBreakpointSwitched) {
-        const panels = containerRef.current?.querySelectorAll('.skill-panel');
+    let handleResize: () => void;
 
-        panels?.forEach((panel) => {
-          const id = panel.getAttribute('data-id');
-          const isActive = id === activeCat;
-          const content = panel.querySelector('.panel-content');
-          const progressFills = panel.querySelectorAll('.progress-fill');
-          const descs = panel.querySelectorAll('.desc');
+    const ctx = gsap.context(() => {
+      const updatePanels = (forceAnim = false) => {
+        const isMobile = window.innerWidth <= 768;
+        const isBreakpointSwitched = isMobile !== lastIsMobile.current;
 
-          gsap.killTweensOf([panel, content, progressFills]);
+        if (forceAnim || isBreakpointSwitched) {
+          const panels = containerRef.current?.querySelectorAll('.skill-panel');
 
-          const tl = gsap.timeline({
-            defaults: { ease: "expo.out" },
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top 80%",
-            },
-            onComplete: () => {
-              if (isActive) {
-                setAnimDone(true);
-                gsap.set(panel, { clearProps: "all" });
-                checkScroll();
+          panels?.forEach((panel) => {
+            const id = panel.getAttribute('data-id');
+            const isActive = id === activeCat;
+            const content = panel.querySelector('.panel-content');
+            const progressFills = panel.querySelectorAll('.progress-fill');
+            const descs = panel.querySelectorAll('.desc');
+
+            gsap.killTweensOf([panel, content, progressFills]);
+
+            const tl = gsap.timeline({
+              defaults: { ease: "expo.out" },
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 80%",
+              },
+              onComplete: () => {
+                if (isActive) {
+                  setAnimDone(true);
+                  gsap.set(panel, { clearProps: "all" });
+                  checkScroll();
+                }
               }
+            });
+
+            if (isActive) {
+              tl.to(panel, {
+                flexGrow: isMobile ? 0 : 12,
+                flexBasis: isMobile ? "auto" : "0%",
+                duration: 0.8,
+              })
+                .to(content, {
+                  opacity: 1, x: 0, y: 0,
+                  duration: 0.5,
+                }, "-=0.4");
+
+              if (forceAnim) {
+                tl.fromTo(progressFills,
+                  { scaleX: 0 },
+                  { scaleX: 1, duration: 1, stagger: 0.1, ease: "power3.out" },
+                  "-=0.3"
+                )
+                  .to(descs,
+                    {
+                      opacity: 1,
+                      x: 0,
+                      duration: 0.8,
+                      stagger: 0.1,
+                      ease: "expo.out",
+                    },
+                    "<"
+                  );
+              }
+            } else {
+              tl.to(content, {
+                opacity: 0,
+                x: isMobile ? 0 : -20,
+                y: isMobile ? -20 : 0,
+                duration: 0.3,
+              })
+                .to(panel, {
+                  flexGrow: 0,
+                  flexBasis: isMobile ? "60px" : "80px",
+                  width: isMobile ? "100%" : "80px",
+                  duration: 0.6,
+                }, "<");
             }
           });
+        }
 
-          if (isActive) {
-            tl.to(panel, {
-              flexGrow: isMobile ? 0 : 12,
-              flexBasis: isMobile ? "auto" : "0%",
-              duration: 0.8,
-            })
-              .to(content, {
-                opacity: 1, x: 0, y: 0,
-                duration: 0.5,
-              }, "-=0.4");
+        lastIsMobile.current = isMobile;
+      };
 
-            if (forceAnim) {
-              tl.fromTo(progressFills,
-                { scaleX: 0 },
-                { scaleX: 1, duration: 1, stagger: 0.1, ease: "power3.out" },
-                "-=0.3"
-              )
-                .to(descs,
-                  {
-                    opacity: 1,
-                    x: 0,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    ease: "expo.out",
-                  },
-                  "<"
-                );
-            }
-          } else {
-            tl.to(content, {
-              opacity: 0,
-              x: isMobile ? 0 : -20,
-              y: isMobile ? -20 : 0,
-              duration: 0.3,
-            })
-              .to(panel, {
-                flexGrow: 0,
-                flexBasis: isMobile ? "60px" : "80px",
-                width: isMobile ? "100%" : "80px",
-                duration: 0.6,
-              }, "<");
-          }
-        });
+      updatePanels(true);
+
+      handleResize = () => {
+        if (resizeTimeout.current !== null) {
+          window.clearTimeout(resizeTimeout.current);
+        }
+        resizeTimeout.current = window.setTimeout(() => {
+          updatePanels(false);
+          resizeTimeout.current = null;
+        }, 120);
+      };
+
+      window.addEventListener('resize', handleResize, { passive: true });
+    }, containerRef);
+
+    return () => {
+      if (resizeTimeout.current !== null) {
+        window.clearTimeout(resizeTimeout.current);
+        resizeTimeout.current = null;
       }
-
-      lastIsMobile.current = isMobile;
+      if (handleResize) {
+        window.removeEventListener('resize', handleResize);
+      }
+      ctx.revert();
     };
-
-    updatePanels(true);
-
-    const handleResize = () => {
-      updatePanels(false);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, [activeCat]);
 
   return (
