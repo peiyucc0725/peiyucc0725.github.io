@@ -148,7 +148,7 @@ const ProjectSlider: React.FC = () => {
                       Feature Details
                     </h4>
                     <div className="text-bg-primary font-mono text-sm leading-relaxed">
-                      <p className="mb-2 font-bold">{project.content.summary}</p>
+                      <div className="mb-3 font-bold">{project.content.summary}</div>
 
                       <ul className="list-inside space-y-1">
                         {project.content.highlights.map((item, index) => (

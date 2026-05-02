@@ -3,7 +3,7 @@
 
   &.active {
     backdrop-filter: blur(5px);
-    
+
     .panel-label .num::after {
       height: 30px;
       background: var(--color-primary);
@@ -28,8 +28,13 @@
     }
 
     @media (max-width: 768px) {
-      .title { writing-mode: horizontal-tb !important; }
-      .num::after { display: none !important; }
+      .title {
+        writing-mode: horizontal-tb !important;
+      }
+
+      .num::after {
+        display: none !important;
+      }
     }
   }
 
@@ -40,11 +45,17 @@
     }
 
     // 自定義捲軸
-    &::-webkit-scrollbar { width: 4px; }
-    &::-webkit-scrollbar-track { background: var(--color-card-bg); }
-    &::-webkit-scrollbar-thumb { 
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--color-card-bg);
+    }
+
+    &::-webkit-scrollbar-thumb {
       background: rgba(123, 155, 166, 0.2);
-      border-radius: 10px; 
+      border-radius: 10px;
     }
   }
 
@@ -58,7 +69,7 @@
       background: var(--color-primary);
       top: -4px;
     }
-    
+
     &.active .desc {
       opacity: 1;
       transform: translateX(0);

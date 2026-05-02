@@ -66,10 +66,10 @@ const About = () => {
     <section
       id="about"
       ref={containerRef}
-      className="about-section min-h-screen flex flex-col-reverse md:flex-row items-center justify-center relative gap-[30px] md:gap-[80px]"
+      className="about-section min-h-screen flex flex-col-reverse md:flex-row px-[8vw] md:px-[12vw] items-center justify-center relative gap-[30px] md:gap-[60px]"
     >
-      <div className="about-content w-full md:w-[420px] lg:w-[550px] flex flex-col md:items-start justify-center items-center">
-        <div className="flex flex-col items-start w-fit mx-auto lg:px-0 px-10">
+      <div className="about-content w-full lg:w-[50vw] flex flex-col md:items-start justify-center items-center">
+        <div className="flex flex-col items-start w-fit px-0">
           {content.map((item, index) => (
             <div
               className="highlight-item flex flex-col items-start min-h-[61px] md:min-h-[81px] max-w-full text-start mb-4 last:mb-0 md:mb-6 w-fit"
@@ -88,7 +88,7 @@ const About = () => {
         </div>
       </div>
 
-      <div className="about-image">
+      <div className="about-image lg:w-[25vw]">
         <PolaroidFrame>
           <img
             ref={imgRef}

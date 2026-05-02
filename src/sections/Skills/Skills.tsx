@@ -164,7 +164,7 @@ const Skills: React.FC = () => {
   return (
     <section
       id="skills"
-      className="skills-section relative flex h-auto md:h-screen flex-col md:flex-row px-[8vw] md:px-[15vw] py-25 overflow-hidden box-border"
+      className="skills-section relative flex h-auto md:h-screen flex-col md:flex-row px-[8vw] md:px-[12vw] py-25 overflow-hidden box-border"
       ref={containerRef}
     >
       {Object.entries(skillData).map(([key, skills], index) => (

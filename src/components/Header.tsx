@@ -1,13 +1,47 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const Header = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
+  const [activeSection, setActiveSection] = useState('hero');
+  const menuItems = [
+    { id: 'hero', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'projects', label: 'Projects' },
+  ];
+
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    gsap.to(window, {
+      duration: 0.2,
+      scrollTo: { y: `#${id}`, offsetY: 0 },
+      ease: "power3.inOut"
+    });
+  };
 
   useGSAP(() => {
     const initActions = () => {
+      const sections = document.querySelectorAll('section[id]');
+      sections.forEach(section => {
+        // if (section.id === 'hero') return;
+        ScrollTrigger.create({
+          trigger: `#${section.id}`,
+          start: "top 20%",
+          end: "bottom 20%",
+          onToggle: self => self.isActive && setActiveSection(section.id)
+        });
+      });
+
       gsap.to(headerRef.current, {
         y: 0,
         opacity: 1,
@@ -40,18 +74,37 @@ const Header = () => {
     return () => clearTimeout(timer);
   }, { scope: headerRef });
 
+  useGSAP(() => {
+    const activeLi = menuRef.current?.querySelector(`.nav-item-${activeSection}`) as HTMLElement;
+    
+    if (activeLi && indicatorRef.current) {
+      gsap.to(indicatorRef.current, {
+        x: activeLi.offsetLeft,
+        width: activeLi.offsetWidth,
+        duration: 0.4,
+        ease: "power2.out"
+      });
+    }
+  }, [activeSection]);
+
   return (
     <div className="header fixed-header" ref={headerRef}>
       <div className="logo" ref={logoRef}>
         <img src="/logo.png" width={80} height={80} alt="PeiYu" />
       </div>
       <div className="menu">
-        <ul className="menu-list">
-          <li><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
+        <ul className="menu-list" ref={menuRef} style={{ position: 'relative' }}>
+          <span className="nav-indicator" ref={indicatorRef}></span>
+          {menuItems.map(item => (
+            <li key={item.id} className={`nav-item-${item.id}`}>
+              <a
+                href={`#${item.id}`}
+                className={activeSection === item.id ? 'active' : ''}
+                onClick={(e) => handleScroll(e, item.id)}>
+                {item.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

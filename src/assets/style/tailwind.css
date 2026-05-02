@@ -16,7 +16,8 @@
   
   /* --- 文字顏色 (Text) --- */
   --color-text-main: #4A4A4A;
-  --color-text-muted: #8C8C8C;
+  --color-text-muted: #6e6e6e;
+  --color-text-muted-light: #8C8C8C;
   --color-text-on-primary: #FFFFFF;
   
   /* --- 狀態顏色 (Status) --- */

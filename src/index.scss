@@ -20,6 +20,10 @@
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
 }

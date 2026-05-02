@@ -40,8 +40,8 @@ const Hero: React.FC = () => {
       z: 0 // 強制 GPU 開啟 3D
     });
 
-    const titleWords = q(".title-word");
-    const tl = gsap.timeline({ 
+    const titleWords = q(".hero-title__word");
+    const tl = gsap.timeline({
       defaults: { ease: "power4.out" },
       onComplete: () => setAnimDone(true)
     });
@@ -49,7 +49,7 @@ const Hero: React.FC = () => {
     tl.from(logoRef.current, {
       scale: 0.5,
       opacity: 0,
-      duration: 1.5,
+      duration: 2.5,
       z: -100
     })
       .from(titleWords, {
@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
         stagger: 0.15, // 錯開進場
         skewY: 7,      // 增加斜向進場效果
       }, "-=0.8") // 在 Logo 動畫快結束時提前開始
-      .from(q(".subtitle"), {
+      .from(q(".hero-subtitle"), {
         y: 20,
         opacity: 0,
         duration: 0.8
@@ -90,23 +90,24 @@ const Hero: React.FC = () => {
   }, { scope: container });
 
   return (
-    <section id="hero" ref={container} className="hero-section flex items-center justify-center relative overflow-hidden">
+    <section id="hero" ref={container} className="hero-section h-screen min-h-screen flex flex-col items-center justify-center 
+      relative overflow-hidden px-[8vw] md:px-[12vw]">
       <div ref={logoWrapperRef} className="logo-wrapper relative inline-block mb-10">
         <img
           ref={logoRef}
           src="/logo.png"
           alt="Logo"
-          className="big-logo 3d-object"
+          className="big-logo 3d-object display-block mx-auto"
         />
       </div>
 
-      <h1 className="title">
-        <span className="title-word">Hello,</span>
-        <span className="title-word">I'm</span>
-        <span className="title-word name">Pei-Yu</span>
+      <h1 className="hero-title flex justify-center flex-wrap gap-[30px] cursor-default text-center text-text-muted">
+        <span className="hero-title__word">Hello,</span>
+        <span className="hero-title__word">I'm</span>
+        <span className="hero-title__word name">Pei-Yu</span>
       </h1>
 
-      <p className="subtitle">
+      <p className="hero-subtitle relative mx-auto w-fit text-text-muted-light">
         Senior Frontend Engineer. Crafting elegant solutions from complex challenges.
       </p>
 
