@@ -3,8 +3,10 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import './Hero.scss';
 import StateMarker from '../../components/StateMarker'
+import { useTranslation } from 'react-i18next';
 
 const Hero: React.FC = () => {
+  const { t } = useTranslation();
   const container = useRef<HTMLDivElement>(null);
   const logoWrapperRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
@@ -92,7 +94,7 @@ const Hero: React.FC = () => {
   return (
     <section id="hero" ref={container} className="hero-section h-screen min-h-screen flex flex-col items-center justify-center 
       relative overflow-hidden px-[8vw] md:px-[12vw]">
-      <div ref={logoWrapperRef} className="logo-wrapper relative inline-block mb-10">
+      <div ref={logoWrapperRef} className="logo-wrapper relative inline-block">
         <img
           ref={logoRef}
           src="/logo.png"
@@ -102,14 +104,18 @@ const Hero: React.FC = () => {
       </div>
 
       <h1 className="hero-title flex justify-center flex-wrap gap-[30px] cursor-default text-center text-text-muted">
-        <span className="hero-title__word">Hello,</span>
+        <span className="hero-title__word">Hello, </span>
         <span className="hero-title__word">I'm</span>
-        <span className="hero-title__word name">Pei-Yu</span>
+        <span className="hero-title__word name uppercase">PeiYu</span>
       </h1>
 
-      <p className="hero-subtitle relative mx-auto w-fit text-text-muted-light">
-        Senior Frontend Engineer. Crafting elegant solutions from complex challenges.
-      </p>
+      <span className="hero-subtitle relative mx-auto w-fit text-text-muted-light mb-1">
+        {t('common.seniorFrontend')}
+      </span>
+
+      <span className="hero-subtitle relative mx-auto w-fit text-text-muted-light">
+        {t('home.description')}
+      </span>
 
       <StateMarker key="hero-marker" isParentAnimDone={animDone} />
     </section>

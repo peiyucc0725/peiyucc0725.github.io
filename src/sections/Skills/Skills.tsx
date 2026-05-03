@@ -173,7 +173,7 @@ const Skills: React.FC = () => {
           className={`skill-panel group relative flex flex-col md:flex-row h-full shrink-0 rounded-lg overflow-hidden
         ${activeCat === key
               ? 'active grow-12 basis-auto md:basis-[300px] bg-card-bg shadow-[inset_0_0_50px_rgba(142,92,65,0.02)]'
-              : 'grow basis-[60px] md:basis-[80px] bg-transparent'}`}
+              : 'grow basis-[60px] md:basis-[80px] bg-bg-secondary'}`}
           data-id={key}
           onClick={() => {
             setActiveCat(key);
@@ -182,7 +182,7 @@ const Skills: React.FC = () => {
         >
           <div className={`panel-label relative flex flex-row md:flex-col items-center justify-between md:justify-start
             px-8 md:px-0 py-0 md:py-12 w-full md:w-20 md:min-w-[80px] h-[60px] md:h-full cursor-pointer 
-            shrink-0 whitespace-nowrap ${activeCat === key ? 'bg-transparent' : 'bg-bg-secondary/20 hover:bg-primary-light/10'}`}
+            shrink-0 whitespace-nowrap ${activeCat === key ? 'bg-bg-secondary' : 'bg-bg-secondary/20 hover:bg-primary-light/10'}`}
           >
             <span className={`num text-[0.8rem] text-primary mb-0 md:mb-10 relative`}>
               0{index + 1}

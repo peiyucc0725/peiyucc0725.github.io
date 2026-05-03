@@ -1,0 +1,44 @@
+{
+  "navbar": {
+    "home": "起點",
+    "about": "關於我",
+    "skills": "技術領域",
+    "experience": "職涯軌跡",
+    "projects": "作品集"
+  },
+  "common": {
+    "seniorFrontend": "資深前端工程師"
+  },
+  "home": {
+    "description": "以簡潔的程式碼與細膩的設計，解決棘手的技術難題"
+  },
+  "about": {
+    "year": "年",
+    "devExperience": "開發經驗",
+    "paragraph1": "深耕前端領域超過 7 年，具備從電商平台到 IoT 嵌入式系統的實戰經歷。",
+    "paragraph2": "擅長以 Vue 為核心，結合前端架構設計、互動開發與介面細節優化，打造兼具穩定性與使用體驗的高度客製化數位產品。",
+    "paragraph3": "在專案推進中，重視跨部門協作與開發流程管理，致力於將複雜需求轉化為直覺且流暢的產品體驗。",
+    "currentStatus":"尋找新的挑戰中"
+  },
+  "experience": {
+    "bxbCompany": "卡訊電子股份有限公司",
+    "bxbDuration": "5 年 10 個月",
+    "bxbRolesTitle1": "研發副課長",
+    "bxbRolesTitle2": "前端工程師",
+    "bxbDescription1": "主導媒體處理器、環控系統等核心產品之 Web 操作系統開發與維護。",
+    "bxbDescription2": "運用 Canvas 與 Fabric.js 打造高彈性的拖拉式視覺化版型編輯器。",
+    "bxbDescription3": "實作 Web Audio API 與 Opus.js 音訊編解碼，處理即時廣播系統技術挑戰。",
+    "bxbDescription4": "負責技術實作指導、Code Review 與架構優化，參與產品開發戰略規劃。",
+    "KSDCompany": "高盛大股份有限公司",
+    "KSDDuration": "1 年 6 個月",
+    "KSDRolesTitle": "前端工程師",
+    "KSDDescription1": "負責 CityPass 都會通電商平台之開發與維護，採用 Vue 與 Nuxt 建構 SSR 架構以提升效能與 SEO 表現。",
+    "KSDDescription2": "整合 Apple Pay、Google Pay 金流支付與各類第三方社群登入機制。",
+    "KSDDescription3": "協助後端 PHP API 撰寫與 Python Flask LINE Bot Webhook 開發。",
+    "YEPCompany": "業展資訊有限公司",
+    "YEPDuration": "2 個月",
+    "YEPRolesTitle": "前端實習工程師",
+    "YEPDescription1": "參與 G Suite 教育應用後台開發，運用 jQuery 進行介面與資料對接。",
+    "YEPDescription2": "初探 MVC 開發架構，建立對現代網頁工程的濃厚興趣與基礎。"
+  }
+}

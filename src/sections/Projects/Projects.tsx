@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
-import projects from './Contents';
+import projects from './Contents.ts';
 import StateMarker from '../../components/StateMarker'
 
 const ProjectSlider: React.FC = () => {
@@ -70,7 +70,7 @@ const ProjectSlider: React.FC = () => {
   }, { scope: containerRef });
 
   return (
-    <section id="projects" ref={containerRef} className="min-h-screen flex flex-col items-center justify-center relative px-10">
+    <section id="projects" ref={containerRef} className="min-h-screen flex flex-col items-center justify-center relative px-[8vw] md:px-[12vw]">
       <div className="max-w-5xl w-full mx-auto pt-14">
         <Swiper
           modules={[Navigation]}
@@ -97,7 +97,7 @@ const ProjectSlider: React.FC = () => {
           {projects.map((project) => (
             <SwiperSlide key={project.id} className="py-8">
               <div
-                className="group relative h-95 max-w-95 w-full mx-auto perspective-distant cursor-pointer"
+                className="group relative h-95 max-w-100 w-full mx-auto perspective-distant cursor-pointer"
                 onClick={() => toggleFlip(project.id)}
               >
                 <div

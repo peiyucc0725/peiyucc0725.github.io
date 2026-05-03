@@ -23,6 +23,7 @@
     &__word {
       display: inline-block;
       transition: color .3s;
+      letter-spacing: 0.1rem;
 
       &:hover {
         color: $primary-color;
@@ -37,12 +38,6 @@
   }
 
   .hero-subtitle {
-    font-weight: 300;
-
-    @media (max-width: 768px) {
-      font-size: 14px;
-    }
-
     &:hover {
       &:after {
         width: 100%;
@@ -57,7 +52,7 @@
       bottom: 0;
       width: 0%;
       height: 10px;
-      background-color: rgba($accent-color, 0.1);
+      background-color: rgba($accent-color, 0.3);
       transition: width 0.3s ease;
     }
   }

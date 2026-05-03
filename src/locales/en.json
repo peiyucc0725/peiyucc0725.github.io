@@ -1,0 +1,44 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "projects": "Projects"
+  },
+    "common": {
+    "seniorFrontend": "Senior Frontend Engineer"
+  },
+  "home": {
+    "description": "Solving hard problems with clean code and thoughtful design."
+  },
+  "about": {
+    "year": "Years Of",
+    "devExperience": "Development Experience",
+    "paragraph1": "With over 7 years of experience in frontend development, I have hands-on expertise ranging from e-commerce platforms to IoT embedded systems.",
+    "paragraph2": "Specializing in Vue as my core framework, I focus on frontend architecture design, interactive development, and UI detail refinement to deliver highly customized digital products that balance stability and user experience.",
+    "paragraph3": "In project execution, I emphasize cross-functional collaboration and development process management, aiming to transform complex requirements into intuitive and seamless product experiences.",
+    "currentStatus":"Looking for new challenges"
+  },
+  "experience": {
+    "bxbCompany": "BXB Electronics Co., Ltd.",
+    "bxbDuration": "5 years 10 months",
+    "bxbRolesTitle1": "R&D Deputy Section Manager",
+    "bxbRolesTitle2": "Frontend Engineer",
+    "bxbDescription1": "Led the development and maintenance of web-based operation systems for core products such as media processors and environmental control systems.",
+    "bxbDescription2": "Built a highly flexible drag-and-drop visual layout editor using Canvas and Fabric.js.",
+    "bxbDescription3": "Implemented real-time broadcasting features with Web Audio API and Opus.js audio encoding/decoding to address streaming system challenges.",
+    "bxbDescription4": "Provided technical guidance, conducted code reviews, optimized system architecture, and participated in product strategy planning.",
+    "KSDCompany": "KSD Co., Ltd.",
+    "KSDDuration": "1 year 6 months",
+    "KSDRolesTitle": "Frontend Engineer",
+    "KSDDescription1": "Developed and maintained the CityPass e-commerce platform using Vue and Nuxt with SSR architecture to improve performance and SEO.",
+    "KSDDescription2": "Integrated payment systems including Apple Pay and Google Pay, as well as various third-party social login services.",
+    "KSDDescription3": "Assisted in backend PHP API development and implemented LINE Bot webhook using Python Flask.",
+    "YEPCompany": "Ye Zhan Information Co., Ltd.",
+    "YEPDuration": "2 months (Internship)",
+    "YEPRolesTitle": "Web Developer Intern",
+    "YEPDescription1": "Participated in the development of a G Suite educational application backend using jQuery for UI and data integration.",
+    "YEPDescription2": "Gained initial exposure to MVC architecture and built a strong foundation and interest in modern web engineering."
+  }
+}

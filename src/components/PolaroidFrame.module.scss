@@ -14,19 +14,19 @@
 }
 
 .imageWrapper {
-  width: 259px;
-  height: 346px;
+  width: 230px;
+  height: 300px;
   overflow: hidden;
   background-color: #f0f0f0;
 
   @media (max-width: 1024px) {
-    width: 201.6px;
-    height: 268.8px;
+    width: 200px;
+    height: 245px;
   }
 
   @media (max-width: 768px) {
-    width: 172.8px;
-    height: 172.8px;
+    width: 180px;
+    height: 180px;
   }
 
 }
@@ -40,9 +40,8 @@
 
 .polaroidText {
   position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 10px;
+  right: 12px;
   font-family: 'Monospace', sans-serif;
   font-size: 12px;
   color: #a0a0a0;

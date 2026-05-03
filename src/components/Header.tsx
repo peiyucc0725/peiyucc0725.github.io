@@ -3,21 +3,23 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { useTranslation } from 'react-i18next';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const Header = () => {
+  const { t } = useTranslation();
   const headerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
   const indicatorRef = useRef<HTMLSpanElement>(null);
   const [activeSection, setActiveSection] = useState('hero');
   const menuItems = [
-    { id: 'hero', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'projects', label: 'Projects' },
+    { id: 'hero', label: t('navbar.home') },
+    { id: 'about', label: t('navbar.about') },
+    { id: 'experience', label: t('navbar.experience') },
+    { id: 'skills', label: t('navbar.skills') },
+    { id: 'projects', label: t('navbar.projects') },
   ];
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -76,7 +78,7 @@ const Header = () => {
 
   useGSAP(() => {
     const activeLi = menuRef.current?.querySelector(`.nav-item-${activeSection}`) as HTMLElement;
-    
+
     if (activeLi && indicatorRef.current) {
       gsap.to(indicatorRef.current, {
         x: activeLi.offsetLeft,

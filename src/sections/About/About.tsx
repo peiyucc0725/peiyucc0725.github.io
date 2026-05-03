@@ -2,31 +2,19 @@ import { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { TextPlugin } from "gsap/TextPlugin";
-import PolaroidFrame from '../../components/PolaroidFrame'
-import lifestyleImage from '../../assets/images/lifestyle.jpg'
-import StateMarker from '../../components/StateMarker'
+import PolaroidFrame from '../../components/PolaroidFrame';
+import lifestyleImage from '../../assets/images/lifestyle.jpg';
+import StateMarker from '../../components/StateMarker';
+import { useTranslation } from 'react-i18next';
 
 gsap.registerPlugin(TextPlugin);
 
 const About = () => {
+  const { t } = useTranslation();
   const imgRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const countRef = useRef<HTMLSpanElement>(null);
   const [animDone, setAnimDone] = useState(false);
-
-  const content = [
-    {
-      title: "Senior Frontend Specialist",
-      desc: "超過 7 年大型專案開發經驗，專注於嵌入式系統 Web 介面與 IoT 控制設備。"
-    },
-    {
-      title: "Technical Stack Expertise",
-      desc: "精通 Vue 3 生態系，並具備大規模 Canvas 組件與效能優化的實務經驗。"
-    },
-    {
-      title: "Strategic Problem Solver",
-      desc: "不只是寫 Code，更從產品設計階段介入，提供具備高度擴充性的技術架構建議。"
-    }
-  ];
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -37,75 +25,87 @@ const About = () => {
       onComplete: () => setAnimDone(true)
     });
 
-    tl.fromTo(imgRef.current,
-      { filter: "blur(15px) grayscale(100%)", opacity: 0 },
-      { filter: "blur(0px) grayscale(0%)", opacity: 1, duration: 1.2 }
-    )
-    const items = gsap.utils.toArray<HTMLElement>('.highlight-item');
-    items.forEach((item) => {
-      const title = item.querySelector('.title');
-      const desc = item.querySelector('.description');
-      const fullTitle = title?.getAttribute('data-text') || "";
-      const fullDesc = desc?.getAttribute('data-text') || "";
-
-      tl.to(title, {
-        duration: 0.5,
-        text: { value: fullTitle },
-        ease: "none"
-      }, ">-0.2") // 銜接在前一個動畫快結束時
-        .to(desc, {
-          duration: 1,
-          text: { value: fullDesc },
-          ease: "none"
-        }, ">-0.1");
-    });
+    tl.fromTo(countRef.current,
+      { innerText: "0" },
+      {
+        innerText: "7",
+        duration: 3,
+        snap: { innerText: 1 },
+        ease: "power2.out"
+      })
+      .from(".about-paragraph", {
+        y: 80,
+        opacity: 0,
+        stagger: 0.3,
+        duration: 2,
+        ease: "power2.out"
+      }, "<")
+      .fromTo(imgRef.current,
+        { filter: "blur(15px) grayscale(100%)", opacity: 0 },
+        { filter: "blur(0px) grayscale(0%)", opacity: 1, duration: 1 },
+        "<"
+      );
 
   }, { scope: containerRef });
 
   return (
-    <section
-      id="about"
-      ref={containerRef}
-      className="about-section min-h-screen flex flex-col-reverse md:flex-row px-[8vw] md:px-[12vw] items-center justify-center relative gap-[30px] md:gap-[60px]"
-    >
-      <div className="about-content w-full lg:w-[50vw] flex flex-col md:items-start justify-center items-center">
-        <div className="flex flex-col items-start w-fit px-0">
-          {content.map((item, index) => (
-            <div
-              className="highlight-item flex flex-col items-start min-h-[61px] md:min-h-[81px] max-w-full text-start mb-4 last:mb-0 md:mb-6 w-fit"
-              key={index}
-            >
-              <div
-                className="title title-color text-title font-mono text-[1rem] md:text-[1.1rem] font-semibold mb-2 tracking-wider"
-                data-text={item.title}
-              ></div>
-              <div
-                className="description text-text-main text-[0.9rem] md:text-[1rem] leading-relaxed opacity-85"
-                data-text={item.desc}
-              ></div>
+    <section id="about" ref={containerRef} className="about-section relative min-h-screen pt-20">
+      <div className="flex flex-col lg:flex-row items-center min-h-[calc(100vh-80px)] gap-12 lg:gap-16 w-full px-[8vw] md:px-[12vw] lg:mb-0 mb-20 lg:h-full">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-8 lg:gap-12 w-full lg:flex-1">
+          <div className="flex flex-col items-center md:items-start min-w-[140px] md:min-w-[180px] 
+              border-t md:border-t-0 md:border-l border-black/10 pt-8 md:pt-0 md:pl-8">
+            <div className="relative">
+              <span ref={countRef} className="text-[100px] md:text-[140px] font-serif leading-none text-primary">
+                0
+              </span>
+              <span className="text-3xl md:text-5xl font-serif text-primary absolute top-2 md:top-4 -right-8 md:-right-10">+</span>
             </div>
-          ))}
+            <div className="mt-4 md:mt-10 text-[0.75rem] md:text-sm uppercase tracking-[0.2em] text-text-main/60 font-medium text-center md:text-left">
+              <div className="text-[14px]">{t('about.year')}</div>
+              <div>{t('about.devExperience')}</div>
+            </div>
+            <div className="mt-4 md:mt-6 text-[10px] md:text-xs text-text-main/40 font-mono italic">
+              {t('common.seniorFrontend')}
+            </div>
+
+            <div className="about-paragraph mt-6 inline-flex items-center gap-3 px-4 py-2 border border-black/5 bg-black/2 rounded-sm w-fit mx-auto md:mx-0">
+              {/* 在職中的狀態 bg-green-500, 等待機會的狀態 bg-blue-500 */}
+              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+              <span className="text-[10px] md:text-xs font-mono text-text-main/60 uppercase tracking-widest">
+                {t('about.currentStatus')}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex-1 flex flex-col justify-center max-w-[480px]">
+            <div className="about-paragraph mb-6 text-text-main text-[0.9rem] md:text-[1.05rem] leading-[1.7] md:leading-[1.8] text-justify opacity-90">
+              {t('about.paragraph1')}
+            </div>
+            <div className="about-paragraph mb-6 text-text-main text-[0.9rem] md:text-[1.05rem] leading-[1.7] md:leading-[1.8] text-justify opacity-90">
+              {t('about.paragraph2')}
+            </div>
+            <div className="about-paragraph text-text-main text-[0.9rem] md:text-[1.05rem] leading-[1.7] md:leading-[1.8] text-justify opacity-90">
+              {t('about.paragraph3')}
+            </div>
+          </div>
+        </div>
+
+        <div className="about-image relative group md:w-[320px] lg:w-[22vw] shrink-0">
+          <PolaroidFrame text={`22° 37' 38" N, 120° 18' 05" E`}>
+            <div className="relative overflow-hidden">
+              <img
+                ref={imgRef}
+                src={lifestyleImage}
+                alt="Life Style Photo"
+                className="block w-full grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
+              />
+            </div>
+          </PolaroidFrame>
         </div>
       </div>
-
-      <div className="about-image lg:w-[25vw]">
-        <PolaroidFrame>
-          <img
-            ref={imgRef}
-            src={lifestyleImage}
-            alt="Life Style Photo"
-            className="block"
-          />
-        </PolaroidFrame>
-      </div>
-
-      <StateMarker
-        key="about-marker"
-        isParentAnimDone={animDone}
-        statusText="UPDATE_STEP_002"
-      />
+      <StateMarker isParentAnimDone={animDone} statusText="UPDATE_STEP_002" />
     </section>
-  )
-}
+  );
+};
 
-export default About
+export default About;

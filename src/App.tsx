@@ -6,15 +6,17 @@ import About from "./sections/About"
 import Skills from "./sections/Skills"
 import Experience from "./sections/Experience"
 import Projects from "./sections/Projects"
+import CyberFlowBackground from './components/CyberFlowBackground'
 
 function App() {  
   return (
     <>
+      <CyberFlowBackground />
       <Header />
       <Hero />
       <About />
-      <Skills />
       <Experience />
+      <Skills />
       <Projects />
       <Footer />
     </>

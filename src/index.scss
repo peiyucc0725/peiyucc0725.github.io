@@ -7,7 +7,6 @@
   flex-direction: column;
   box-sizing: border-box;
   color: $text-main;
-  background: $bg-secondary;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -22,6 +21,7 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: $bg-secondary;
 }
 
 * {
