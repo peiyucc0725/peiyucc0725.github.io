@@ -12,19 +12,19 @@ interface Skill {
 const skillData: Record<string, Skill[]> = {
   frontend: [
     { name: "Vue", level: 95, desc: "核心技術強項，精通 Vue 2/3 生態系（包含 Router, Pinia），具備大型專案架構設計與效能優化經驗。" },
-    { name: "React", level: 60, desc: "自主鑽研 React 技術棧，掌握 Hooks、狀態管理與組件生命週期；透過跨框架模式對比，深化對前端工程化與 UI 架構的全面理解。" },
+    { name: "React", level: 65, desc: "自主鑽研 React 技術棧，掌握 Hooks、狀態管理與組件生命週期；透過跨框架模式對比，深化對前端工程化與 UI 架構的全面理解。" },
     { name: "JavaScript", level: 90, desc: "深厚的 ES6+ 基礎，精通非同步處理（Async/Await）、原型鏈及閉包等核心概念。" },
     { name: "jQuery", level: 90, desc: "具備維護大型舊專案與 Legacy Code 的能力，能精確操作 DOM 並處理跨瀏覽器相容性。" },
-    { name: "CSS / SCSS / SASS", level: 85, desc: "熟練使用預處理器與 CSS 設計模式，能精準還原設計稿並實作複雜的手勢與動畫。" }
+    { name: "SCSS", level: 90, desc: "熟練使用預處理器與 CSS 設計模式，能精準還原設計稿並實作複雜的手勢與動畫。" }
   ],
   backend: [
-    { name: "Node.js", level: 50, desc: "擅長撰寫自動化腳本與工具，並具備 Express 開發簡單 RESTful API 的實務經驗。" },
+    { name: "Node.js", level: 60, desc: "擅長撰寫自動化腳本與工具，並具備 Express 開發簡單 RESTful API 的實務經驗。" },
     { name: "PHP", level: 60, desc: "具備 Laravel 與 CodeIgniter 實務開發經驗，曾參與核心系統維護與第三方金流串接。" },
-    { name: "Python", level: 65, desc: "具備 Selenium 與 BS4 爬蟲經驗，並曾透過 Flask 實作 Line Bot 與 OpenAI Whisper 語音轉文字應用。" },
+    { name: "Python", level: 60, desc: "具備 Selenium 與 BS4 爬蟲經驗，並曾透過 Flask 實作 Line Bot 與 OpenAI Whisper 語音轉文字應用。" },
     { name: "MySQL", level: 60, desc: "具備資料庫設計與操作經驗，能撰寫 SQL 語法進行 CRUD 操作並優化資料查詢結構。" }
   ],
   tools: [
-    { name: "Electron", level: 70, desc: "具備跨平台桌面端開發經驗，能將前端技術轉化為穩定運作的離線應用程式。" },
+    { name: "Electron", level: 80, desc: "具備跨平台桌面端開發經驗，能將前端技術轉化為穩定運作的離線應用程式。" },
     { name: "Vite / Webpack", level: 80, desc: "掌握前端建置工具，能優化打包配置（Bundling）以大幅縮減載入時間與專案體積。" },
     { name: "Git", level: 90, desc: "精通 Git Flow 版本控制與多人協作，具備優良的開發規範與衝突解決（Conflict）處理經驗。" }
   ]
@@ -195,7 +195,7 @@ const Skills: React.FC = () => {
             </p>
           </div>
           <div
-            className={`panel-content flex-1 shrink-0 p-8 md:p-16 overflow-x-hidden overflow-y-auto flex flex-col gap-10 w-full md:w-[calc(100vw-240px)] box-border 
+            className={`panel-content flex-1 shrink-0 p-8 md:py-8 md:px-12 overflow-x-hidden overflow-y-auto flex flex-col gap-4 w-full md:w-[calc(100vw-240px)] box-border 
               ${activeCat === key ? 'opacity-100 pointer-events-auto translate-x-0' : 'opacity-0 pointer-events-none -translate-x-5'}`}
             ref={(el) => { contentRefs.current[key] = el; }}
             style={{
@@ -215,7 +215,7 @@ const Skills: React.FC = () => {
                   ></div>
                 </div>
                 {skill.desc && (
-                  <p className="desc mt-[15px]! text-[0.9rem] text-text-muted leading-[1.7] tracking-wider text-left opacity-0 -translate-x-5 transition-all duration-300">
+                  <p className="desc mt-[15px]! text-[0.9rem] h-[3rem] min-h-[max-content] text-text-muted leading-[1.7] tracking-wider text-left opacity-0 -translate-x-5 transition-all duration-300">
                     {skill.desc}
                   </p>
                 )}

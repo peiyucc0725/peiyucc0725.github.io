@@ -13,7 +13,10 @@ const Header = () => {
   const logoRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
   const indicatorRef = useRef<HTMLSpanElement>(null);
+  
   const [activeSection, setActiveSection] = useState('hero');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const menuItems = [
     { id: 'hero', label: t('navbar.home') },
     { id: 'about', label: t('navbar.about') },
@@ -24,6 +27,8 @@ const Header = () => {
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
+    setIsMenuOpen(false);
+
     gsap.to(window, {
       duration: 0.2,
       scrollTo: { y: `#${id}`, offsetY: 0 },
@@ -35,7 +40,6 @@ const Header = () => {
     const initActions = () => {
       const sections = document.querySelectorAll('section[id]');
       sections.forEach(section => {
-        // if (section.id === 'hero') return;
         ScrollTrigger.create({
           trigger: `#${section.id}`,
           start: "top 20%",
@@ -52,6 +56,7 @@ const Header = () => {
           trigger: "#hero",
           start: "bottom 20%",
           toggleActions: "play none none reverse",
+          onToggle: () => setIsMenuOpen(false)
         }
       });
 
@@ -72,14 +77,13 @@ const Header = () => {
     }
 
     const timer = setTimeout(initActions, 50)
-
     return () => clearTimeout(timer);
   }, { scope: headerRef });
 
   useGSAP(() => {
     const activeLi = menuRef.current?.querySelector(`.nav-item-${activeSection}`) as HTMLElement;
 
-    if (activeLi && indicatorRef.current) {
+    if (activeLi && indicatorRef.current && window.innerWidth > 768) {
       gsap.to(indicatorRef.current, {
         x: activeLi.offsetLeft,
         width: activeLi.offsetWidth,
@@ -91,10 +95,21 @@ const Header = () => {
 
   return (
     <div className="header fixed-header" ref={headerRef}>
-      <div className="logo" ref={logoRef}>
+      {/* <div className="logo" ref={logoRef}>
         <img src="/logo.png" width={80} height={80} alt="PeiYu" />
-      </div>
-      <div className="menu">
+      </div> */}
+
+      <button 
+        className={`hamburger-btn ${isMenuOpen ? 'open' : ''}`} 
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div className={`menu ${isMenuOpen ? 'show' : ''}`}>
         <ul className="menu-list" ref={menuRef} style={{ position: 'relative' }}>
           <span className="nav-indicator" ref={indicatorRef}></span>
           {menuItems.map(item => (

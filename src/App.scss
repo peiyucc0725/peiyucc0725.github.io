@@ -1,9 +1,12 @@
+$breakpoint-md: 768px;
+
 .header {
   padding: 0 40px 0 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   background-color: $bg-secondary;
+  position: relative;
 
   .logo {
     width: 80px;
@@ -11,11 +14,46 @@
     transition: opacity .3s;
   }
 
+  .hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    z-index: 100;
+    height: 80px;
+
+    span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background-color: $text-main;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    &.open {
+      span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+
+      span:nth-child(2) {
+        opacity: 0;
+      }
+
+      span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+    }
+  }
+
   .menu {
     .menu-list {
       display: flex;
       gap: 10px;
       align-items: center;
+      height: 80px;
 
       .nav-indicator {
         position: absolute;
@@ -49,6 +87,51 @@
           }
         }
       }
+    }
+
+    @media (max-width: $breakpoint-md) {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 200px;
+      height: 100vh;
+      background-color: rgba($bg-secondary, 0.98);
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.05);
+      transition: right 0.3s ease-in-out;
+      display: flex;
+      justify-content: center;
+      z-index: 99;
+      padding-top: 100px;
+
+      &.show {
+        right: 0;
+      }
+
+      .menu-list {
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+
+        .nav-indicator {
+          display: none;
+        }
+
+        li {
+          a {
+            font-size: 18px;
+            padding: 10px 20px;
+            display: block;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    .hamburger-btn {
+      display: flex;
+      justify-content: center;
     }
   }
 }

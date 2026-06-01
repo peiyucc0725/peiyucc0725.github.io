@@ -86,7 +86,7 @@ const Experience: React.FC = () => {
 
               <div className="exp-tech mt-8 flex flex-wrap gap-3">
                 {exp.tech.map(t => (
-                  <span key={t} className="tech-tag text-[0.85rem] bg-primary/10 text-primary px-[10px] py-1 rounded">
+                  <span key={t} className="tech-tag text-[0.85rem] bg-primary/10 text-primary px-[10px] py-1 rounded uppercase">
                     #{t}
                   </span>
                 ))}
