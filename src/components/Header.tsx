@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 const Header = () => {
   const { t } = useTranslation();
   const headerRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
+  // const logoRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
   const indicatorRef = useRef<HTMLSpanElement>(null);
   
@@ -60,20 +60,20 @@ const Header = () => {
         }
       });
 
-      gsap.fromTo(logoRef.current,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          scrollTrigger: {
-            trigger: "#hero",
-            start: "bottom 20%",
-            end: "bottom 20%",
-            scrub: true,
-            invalidateOnRefresh: true,
-            refreshPriority: -1,
-          }
-        }
-      );
+      // gsap.fromTo(logoRef.current,
+      //   { opacity: 0 },
+      //   {
+      //     opacity: 1,
+      //     scrollTrigger: {
+      //       trigger: "#hero",
+      //       start: "bottom 20%",
+      //       end: "bottom 20%",
+      //       scrub: true,
+      //       invalidateOnRefresh: true,
+      //       refreshPriority: -1,
+      //     }
+      //   }
+      // );
     }
 
     const timer = setTimeout(initActions, 50)
